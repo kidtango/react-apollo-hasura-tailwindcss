@@ -1,13 +1,27 @@
 import React from 'react';
 import { useAuth0 } from '../Auth/Auth';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+
+const GET_USERS = gql`
+  {
+    users {
+      auth0_id
+      nick_name
+    }
+  }
+`;
 
 const Profile = () => {
-  const { loading, user } = useAuth0();
-  console.log('TCL: Profile -> user', user);
+  const { authLoading, user } = useAuth0();
+  const { loading, error, data } = useQuery(GET_USERS);
 
-  if (loading || !user) {
+  if (authLoading || !user) {
     return <div>Loading...</div>;
   }
+
+  console.log('TCL: Profile -> data', data);
+  console.log('TCL: Profile -> error', error);
 
   return (
     <>

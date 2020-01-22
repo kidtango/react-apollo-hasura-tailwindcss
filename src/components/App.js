@@ -1,32 +1,37 @@
 import React from 'react';
-import createBrowserHistory from './utils/history';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { useAuth0 } from './Auth/Auth';
 import NavBar from './Navbar/NavBar';
 import { Router, Switch, Route } from 'react-router-dom';
 import Profile from './User/Profile';
 import history from './utils/history';
+import PrivateRoute from './PrivateRoute';
+import makeApolloClient from './apollo';
 
 const App = () => {
-  const { loading, user } = useAuth0();
+  const { authLoading, bearerToken } = useAuth0();
 
-  if (loading) {
+  if (authLoading) {
     return <div>Loading...</div>;
   }
 
-  console.log('TCL: App -> user', user);
+  // Get Apollo client
+  const client = makeApolloClient(bearerToken);
 
   return (
-    <div className='App'>
-      <Router history={history}>
-        <header>
-          <NavBar />
-        </header>
-        <Switch>
-          <Route path='/' exact />
-          <Route path='/profile' component={Profile} />
-        </Switch>
-      </Router>
-    </div>
+    <ApolloProvider client={client}>
+      <div className='bg-gray-500'>
+        <Router history={history}>
+          <header>
+            <NavBar />
+          </header>
+          <Switch>
+            <Route path='/' exact />
+            <PrivateRoute path='/profile' component={Profile} />
+          </Switch>
+        </Router>
+      </div>
+    </ApolloProvider>
   );
 };
 

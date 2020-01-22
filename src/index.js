@@ -14,6 +14,8 @@ const onRedirectCallback = appState => {
       ? appState.targetUrl
       : window.location.pathname
   );
+  console.log('TCL: appState', appState);
+  console.log('TCL: window.location.pathname', window.location.pathname);
 };
 
 ReactDOM.render(

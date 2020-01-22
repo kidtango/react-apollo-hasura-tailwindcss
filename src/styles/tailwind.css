@@ -1,0 +1,7 @@
+/* Your customer css goes in here */
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;

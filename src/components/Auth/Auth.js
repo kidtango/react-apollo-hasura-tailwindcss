@@ -18,8 +18,9 @@ export const Auth0Provider = ({
   const [user, setUser] = useState();
   const [auth0Client, setAuth0] = useState();
 
-  const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [bearerToken, setbearerToken] = useState();
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -39,17 +40,17 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        const { __raw } = await auth0FromHook.getIdTokenClaims();
+        setbearerToken(__raw);
 
         setUser(user);
       }
 
-      setLoading(false);
+      setAuthLoading(false);
     };
     initAuth0();
     // eslint-disable-next-line
   }, []);
-
-  console.log('user :', user);
 
   const loginWithPopup = async (params = {}) => {
     setPopupOpen(true);
@@ -66,22 +67,24 @@ export const Auth0Provider = ({
   };
 
   const handleRedirectCallback = async () => {
-    setLoading(true);
+    setAuthLoading(true);
     await auth0Client.handleRedirectCallback();
     const user = await auth0Client.getUser();
-    setLoading(false);
+    setAuthLoading(false);
     setIsAuthenticated(true);
     setUser(user);
   };
+
   return (
     <Auth0Context.Provider
       value={{
         isAuthenticated,
         user,
-        loading,
+        authLoading,
         popupOpen,
         loginWithPopup,
         handleRedirectCallback,
+        bearerToken,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
