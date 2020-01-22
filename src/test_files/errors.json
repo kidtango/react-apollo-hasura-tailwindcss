@@ -1,0 +1,8 @@
+{
+  "errors": [
+    {
+      "extensions": { "path": "$.query", "code": "validation-failed" },
+      "message": "not a valid graphql query"
+    }
+  ]
+}
