@@ -8,12 +8,23 @@ import history from './utils/history';
 import PrivateRoute from './PrivateRoute';
 import makeApolloClient from './apollo';
 import WorkcationHome from './home/WorkcationHome';
+import { ScaleLoader } from 'react-spinners';
+import WorkcationLogo from './Icons/WorkcationLogo';
 
 const App = () => {
   const { authLoading, bearerToken } = useAuth0();
 
   if (authLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div class='bg-gray-900 flex justify-between sm:px-4 sm:py-3 sm:items-center'>
+        <div>
+          <WorkcationLogo />
+        </div>
+        <div>
+          <ScaleLoader color={'#A3BFFA'} />
+        </div>
+      </div>
+    );
   }
 
   // Get Apollo client

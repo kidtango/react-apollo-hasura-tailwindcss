@@ -8,7 +8,7 @@ const Star = ({ property }) => {
         <svg
           className={
             star <= property.rating
-              ? `text-red-500 h-4 w-4 fill-current`
+              ? `text-teal-500 h-4 w-4 fill-current`
               : `text-gray-500 h-4 w-4 fill-current`
           }
           viewBox='0 0 24 24'
