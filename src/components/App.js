@@ -7,6 +7,7 @@ import Profile from './User/Profile';
 import history from './utils/history';
 import PrivateRoute from './PrivateRoute';
 import makeApolloClient from './apollo';
+import WorkcationHome from './home/WorkcationHome';
 
 const App = () => {
   const { authLoading, bearerToken } = useAuth0();
@@ -19,19 +20,19 @@ const App = () => {
   const client = makeApolloClient(bearerToken);
 
   return (
-    <ApolloProvider client={client}>
-      <div className='bg-gray-500'>
+    <div className='antialiased text-gray-900'>
+      <ApolloProvider client={client}>
         <Router history={history}>
           <header>
             <NavBar />
           </header>
           <Switch>
-            <Route path='/' exact />
+            <Route exact path='/' component={WorkcationHome} />
             <PrivateRoute path='/profile' component={Profile} />
           </Switch>
         </Router>
-      </div>
-    </ApolloProvider>
+      </ApolloProvider>
+    </div>
   );
 };
 
