@@ -7,10 +7,11 @@ import { useState } from 'react';
 import WorkcationLogo from '../Icons/WorkcationLogo';
 import HamburgerMenu from '../Icons/HamburgerMenu';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
+import AccountMenu from './AccountMenu';
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -47,30 +48,36 @@ const NavBar = () => {
           </button>
         </div>
       </div>
-      <div
-        className={`px-2 pt-2 pb-4 sm:block sm:flex  ${isOpen ? '' : 'hidden'}`}
-      >
-        <NavLink
-          to='/'
-          className='block text-white font-semibold rounded hover:bg-gray-800 px-2'
-        >
-          List your property
-        </NavLink>
-        <NavLink
-          to='/'
-          className='block mt-1 text-white font-semibold rounded hover:bg-gray-800 px-2 sm:mt-0 sm:ml-2'
-        >
-          Trips
-        </NavLink>
-        <NavLink
-          to='/'
-          className='block mt-1 text-white font-semibold rounded hover:bg-gray-800 px-2 sm:mt-0 sm:ml-2'
-        >
-          Messages
-        </NavLink>
-      
+      <div className={`${isOpen ? 'block' : 'hidden'}`}>
+        <div className='px-2 pt-2 pb-4 sm:p-0 sm:flex '>
+          <NavLink
+            to='/'
+            className='block text-white font-semibold rounded hover:bg-gray-800 px-2 py-1'
+          >
+            List your property
+          </NavLink>
+          <NavLink
+            to='/'
+            className='block mt-1 text-white font-semibold rounded hover:bg-gray-800 px-2 py-1 sm:mt-0 sm:ml-2'
+          >
+            Trips
+          </NavLink>
+          <NavLink
+            to='/'
+            className='block mt-1 text-white font-semibold rounded mr-2 hover:bg-gray-800 px-2 py-1 sm:mt-0 sm:ml-2'
+          >
+            Messages
+          </NavLink>
+
+          {/* Only show dropdown menu on ipad and larger screens */}
+          <div className='hidden sm:block ml-4'>
+            <AccountDropdown />
+          </div>
+        </div>
+        <div className='sm:hidden'>
+          <AccountMenu />
+        </div>
       </div>
-        <AccountDropdown />
     </header>
   );
 };
