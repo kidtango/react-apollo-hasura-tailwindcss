@@ -6,7 +6,7 @@ import { Router, Switch, Route } from 'react-router-dom';
 import Profile from './User/Profile';
 import history from './utils/history';
 import PrivateRoute from './PrivateRoute';
-import makeApolloClient from './apollo';
+import makeApolloClient from '../Apollo/apolloClient';
 import WorkcationHome from './home/WorkcationHome';
 import { ScaleLoader } from 'react-spinners';
 import WorkcationLogo from './Icons/WorkcationLogo';
@@ -37,10 +37,25 @@ const App = () => {
           <header>
             <NavBar />
           </header>
-          <Switch>
-            <Route exact path='/' component={WorkcationHome} />
-            <PrivateRoute path='/profile' component={Profile} />
-          </Switch>
+          <section className='bg-gray-800'>
+            <input type='text' placeholder='Search by keywords' />
+            <button className='bg-white border-gray-300 focus:text-gray-400 rounded-lg'>
+              Filters
+            </button>
+          </section>
+          <main>
+            <div>
+              <h3>Lost Angoles</h3>
+              <p>
+                Live like the stars in these luxurious Southern California
+                estates
+              </p>
+            </div>
+            <Switch>
+              <Route exact path='/' component={WorkcationHome} />
+              <PrivateRoute path='/profile' component={Profile} />
+            </Switch>
+          </main>
         </Router>
       </ApolloProvider>
     </div>

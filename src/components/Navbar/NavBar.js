@@ -11,7 +11,7 @@ import AccountMenu from './AccountMenu';
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -48,7 +48,7 @@ const NavBar = () => {
           </button>
         </div>
       </div>
-      <div className={`${isOpen ? 'block' : 'hidden'}`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} sm:block`}>
         <div className='px-2 pt-2 pb-4 sm:p-0 sm:flex '>
           <NavLink
             to='/'
