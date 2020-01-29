@@ -17,7 +17,6 @@ export const Auth0Provider = ({
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [user, setUser] = useState();
   const [auth0Client, setAuth0] = useState();
-
   const [authLoading, setAuthLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
   const [bearerToken, setbearerToken] = useState();
@@ -25,7 +24,6 @@ export const Auth0Provider = ({
   useEffect(() => {
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(initOptions);
-      console.log('TCL: auth0FromHook', auth0FromHook);
       setAuth0(auth0FromHook);
 
       if (window.location.search.includes('code=')) {
@@ -34,7 +32,6 @@ export const Auth0Provider = ({
       }
 
       const isAuthenticated = await auth0FromHook.isAuthenticated();
-      console.log('TCL: isAuthenticated', auth0FromHook.getUser());
 
       setIsAuthenticated(isAuthenticated);
 

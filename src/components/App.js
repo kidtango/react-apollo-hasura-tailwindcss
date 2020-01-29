@@ -34,23 +34,10 @@ const App = () => {
     <div className='antialiased text-gray-900'>
       <ApolloProvider client={client}>
         <Router history={history}>
-          <header>
+          <header className='bg-gray-900 sm:flex sm:justify-between sm:px-4 sm:py-3 sm:items-center'>
             <NavBar />
           </header>
-          <section className='bg-gray-800'>
-            <input type='text' placeholder='Search by keywords' />
-            <button className='bg-white border-gray-300 focus:text-gray-400 rounded-lg'>
-              Filters
-            </button>
-          </section>
           <main>
-            <div>
-              <h3>Lost Angoles</h3>
-              <p>
-                Live like the stars in these luxurious Southern California
-                estates
-              </p>
-            </div>
             <Switch>
               <Route exact path='/' component={WorkcationHome} />
               <PrivateRoute path='/profile' component={Profile} />
